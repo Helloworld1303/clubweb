@@ -30,4 +30,9 @@ public class NoticeController {
         }
         return notice;
     }
+
+    @GetMapping("/api/notice-count")
+    public int getNoticeCount(){
+        return noticeRepository.findAll().size();
+    }
 }
