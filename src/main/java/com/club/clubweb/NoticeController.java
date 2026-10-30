@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
-
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 @RestController
 public class NoticeController {
@@ -36,5 +38,11 @@ public class NoticeController {
     @GetMapping("/api/notice-count")
     public int getNoticeCount(){
         return noticeRepository.findAll().size();
+    }
+    @PostMapping("/api/notices")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Notice createNotice(@RequestBody NoticeCreateRequest request){
+        Notice notice = new Notice(request.title(),request.content());
+        return noticeRepository.save(notice);
     }
 }
