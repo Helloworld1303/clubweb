@@ -11,6 +11,7 @@ import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import jakarta.validation.Valid;
 
 @RestController
 public class NoticeController {
@@ -41,7 +42,7 @@ public class NoticeController {
     }
     @PostMapping("/api/notices")
     @ResponseStatus(HttpStatus.CREATED)
-    public Notice createNotice(@RequestBody NoticeCreateRequest request){
+    public Notice createNotice(@Valid @RequestBody NoticeCreateRequest request){
         Notice notice = new Notice(request.title(),request.content());
         return noticeRepository.save(notice);
     }
