@@ -11,6 +11,7 @@ import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import jakarta.validation.Valid;
 
 @RestController
@@ -45,5 +46,13 @@ public class NoticeController {
     public Notice createNotice(@Valid @RequestBody NoticeCreateRequest request){
         Notice notice = new Notice(request.title(),request.content());
         return noticeRepository.save(notice);
+    }
+    @DeleteMapping("/api/notices/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteNotice(@PathVariable long id){
+        if (!noticeRepository.existsById(id)){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+        noticeRepository.deleteById(id);
     }
 }
