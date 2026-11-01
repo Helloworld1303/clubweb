@@ -33,7 +33,7 @@ public class NoticeController {
     public Notice getNotice(@PathVariable long id) {
         Optional<Notice> result = noticeRepository.findById(id);
         if (result.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"공지사항을 찾을 수 없습니다.");
         }
         return result.get();
     }
@@ -52,7 +52,7 @@ public class NoticeController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteNotice(@PathVariable long id){
         if (!noticeRepository.existsById(id)){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"공지사항을 찾을 수 없습니다.");
         }
         noticeRepository.deleteById(id);
     }
@@ -60,7 +60,7 @@ public class NoticeController {
     public Notice updateNotice(@PathVariable long id, @Valid @RequestBody NoticeCreateRequest request){
         Optional<Notice> result = noticeRepository.findById(id);
         if (result.isEmpty()){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"공지사항을 찾을 수 없습니다.");
         }
     Notice notice=result.get();
     notice.update(request.title(),request.content());
