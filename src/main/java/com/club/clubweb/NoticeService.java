@@ -4,8 +4,9 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
-
+import org.springframework.transaction.annotation.Transactional;
 @Service
+
 public class NoticeService {
     
     private final NoticeRepository noticeRepository;
@@ -24,16 +25,17 @@ public class NoticeService {
         }
         return result.get();
     }
-    
+    @Transactional 
     public Notice create(String title, String content){
         return noticeRepository.save(new Notice(title,content));
     }
-
+    @Transactional
     public Notice update(long id,String title, String content){
         Notice notice = findById(id);
         notice.update(title,content);
-        return noticeRepository.save(notice);
+        return notice;
     }
+    @Transactional
     public void delete(long id){
         Notice notice=findById(id);
         noticeRepository.delete(notice);
