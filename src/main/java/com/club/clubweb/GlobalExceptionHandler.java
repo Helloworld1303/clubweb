@@ -32,4 +32,9 @@ public class GlobalExceptionHandler {
         ErrorResponse body = new ErrorResponse(status, e.getReason(), Map.of());
         return ResponseEntity.status(status).body(body);
     }
+    @ExceptionHandler(NoticeNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ErrorResponse handleNoticeNotFound(NoticeNotFoundException e){
+        return new ErrorResponse(404,e.getMessage(),Map.of());
+    }
 }
