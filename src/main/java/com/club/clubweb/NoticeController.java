@@ -1,5 +1,6 @@
 package com.club.clubweb;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+
 
 import jakarta.validation.Valid;
 
@@ -24,24 +26,32 @@ public class NoticeController {
     }
 
     @GetMapping("/api/notices")
-    public List<Notice> getNotices() {
-        return noticeService.findAll();
+    public List<NoticeResponse> getNotices() {
+        List<NoticeResponse> responses=new ArrayList<>();
+        for (Notice notice : noticeService.findAll()){
+            responses.add(NoticeResponse.from(notice));
+        }
+        return responses;
     }
 
     @GetMapping("/api/notices/{id}")
-    public Notice getNotice(@PathVariable long id) {
-        return noticeService.findById(id);
+    public NoticeResponse getNotice(@PathVariable long id) {
+        Notice notice = noticeService.findById(id);
+        return NoticeResponse.from(notice);
     }
 
     @PostMapping("/api/notices")
     @ResponseStatus(HttpStatus.CREATED)
-    public Notice createNotice(@Valid @RequestBody NoticeCreateRequest request) {
-        return noticeService.create(request.title(), request.content());
+    public NoticeResponse createNotice(@Valid @RequestBody NoticeRequest request) {
+        Notice notice = noticeService.create(request.title(),request.content());
+        return NoticeResponse.from(notice);
     }
 
+   
     @PutMapping("/api/notices/{id}")
-    public Notice updateNotice(@PathVariable long id, @Valid @RequestBody NoticeCreateRequest request) {
-        return noticeService.update(id, request.title(), request.content());
+    public NoticeResponse updateNotice(@PathVariable long id, @Valid @RequestBody NoticeRequest request){
+        Notice notice = noticeService.update(id,request.title(),request.content());
+        return NoticeResponse.from(notice);
     }
 
     @DeleteMapping("/api/notices/{id}")
