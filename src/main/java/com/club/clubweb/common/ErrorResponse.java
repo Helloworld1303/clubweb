@@ -1,4 +1,4 @@
-package com.club.clubweb;
+package com.club.clubweb.common;
 
 import java.util.Map;
 

@@ -1,4 +1,4 @@
-package com.club.clubweb;
+package com.club.clubweb.notice;
 
 public class NoticeNotFoundException extends RuntimeException{
 

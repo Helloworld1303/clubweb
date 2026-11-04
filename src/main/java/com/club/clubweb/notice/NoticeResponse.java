@@ -1,4 +1,4 @@
-package com.club.clubweb;
+package com.club.clubweb.notice;
 
 public record NoticeResponse (Long id, String title,String content){
     public static NoticeResponse from(Notice notice){

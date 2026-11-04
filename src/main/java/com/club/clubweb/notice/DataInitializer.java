@@ -1,4 +1,4 @@
-package com.club.clubweb;
+package com.club.clubweb.notice;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;

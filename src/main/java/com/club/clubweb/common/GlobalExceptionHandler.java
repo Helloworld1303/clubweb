@@ -1,17 +1,18 @@
-package com.club.clubweb;
+package com.club.clubweb.common;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.server.ResponseStatusException;
-import org.springframework.web.server.ResponseStatusException;
-import org.springframework.http.ResponseEntity;
+
+import com.club.clubweb.notice.NoticeNotFoundException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {

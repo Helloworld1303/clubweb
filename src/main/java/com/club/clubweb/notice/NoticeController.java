@@ -1,4 +1,4 @@
-package com.club.clubweb;
+package com.club.clubweb.notice;
 
 import java.util.ArrayList;
 import java.util.List;

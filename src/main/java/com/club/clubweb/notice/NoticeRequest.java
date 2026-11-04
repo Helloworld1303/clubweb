@@ -1,4 +1,4 @@
-package com.club.clubweb;
+package com.club.clubweb.notice;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
