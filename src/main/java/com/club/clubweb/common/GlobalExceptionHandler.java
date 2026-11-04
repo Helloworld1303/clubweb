@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -12,7 +13,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.club.clubweb.notice.NoticeNotFoundException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -33,9 +33,16 @@ public class GlobalExceptionHandler {
         ErrorResponse body = new ErrorResponse(status, e.getReason(), Map.of());
         return ResponseEntity.status(status).body(body);
     }
-    @ExceptionHandler(NoticeNotFoundException.class)
+
+    @ExceptionHandler(NotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ErrorResponse handleNoticeNotFound(NoticeNotFoundException e){
-        return new ErrorResponse(404,e.getMessage(),Map.of());
+    public ErrorResponse handleNotFound(NotFoundException e) {
+        return new ErrorResponse(404, e.getMessage(), Map.of());
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse handleNotReadable(HttpMessageNotReadableException e) {
+        return new ErrorResponse(400, "요청 형식이 올바르지 않습니다.", Map.of());
     }
 }
