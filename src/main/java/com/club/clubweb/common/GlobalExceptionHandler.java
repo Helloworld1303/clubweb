@@ -45,4 +45,9 @@ public class GlobalExceptionHandler {
     public ErrorResponse handleNotReadable(HttpMessageNotReadableException e) {
         return new ErrorResponse(400, "요청 형식이 올바르지 않습니다.", Map.of());
     }
+    @ExceptionHandler(UnauthorizedException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public ErrorResponse handleUnauthorized(UnauthorizedException e) {
+        return new ErrorResponse(401,e.getMessage(),Map.of());
+    }
 }
