@@ -2,8 +2,10 @@ package com.club.clubweb.notice;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Profile;
 
 @Component
+@Profile("local")
 public class DataInitializer implements CommandLineRunner{
 
     private final NoticeRepository noticeRepository;
@@ -21,3 +23,4 @@ public class DataInitializer implements CommandLineRunner{
         }
     }
 }
+
